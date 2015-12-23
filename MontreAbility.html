@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><style type="text/css">.gm-style .gm-style-mtc label,.gm-style .gm-style-mtc div{font-weight:400}</style><link href="MontreAbility_files/css.css" rel="stylesheet" type="text/css"><style type="text/css">.gm-style .gm-style-cc span,.gm-style .gm-style-cc a,.gm-style .gm-style-mtc div{font-size:10px}</style><style type="text/css">@media print {  .gm-style .gmnoprint, .gmnoprint {    display:none  }}@media screen {  .gm-style .gmnoscreen, .gmnoscreen {    display:none  }}</style><style type="text/css">.gm-style{font-family:Roboto,Arial,sans-serif;font-size:11px;font-weight:400;text-decoration:none}.gm-style img{max-width:none}</style>
+    <title>MontreAbility</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 100px; padding: 0; font-family: myriadpro, sans-serif;
+            text-align: center; }
+      #map-canvas { height: 100%; border:10px groove #4a5cb5;} 
+      #yourmom {text-align: center; color:#4a5cb5; letter-spacing: 5px;text-shadow: 2px 2px #C0C0C0; font-size:40px;}
+      #logo{display: block; margin-left: auto; margin-right: auto; }
+      #legend{float: left;}
+      h1 { text-align: center; color: 000000; font-size: 16px;} 
+      nav {font-size: 14px}
+    
+     a:link {color: black; text-decoration: none;}
+     a:visited {color: black; text-decoration: none;}
+     a:hover {color: blue; text-decoration: none;}
+
+    </style>
+
+
+   <script style="" type="text/javascript" src="MontreAbility_files/js.js">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(45.511458, -73.570757),
+          zoom: 14
+        };
+
+        var theatreIcon = {url: 'http://i.imgur.com/vuyriaD.png'};
+        var exhibitIcon = {url: 'http://i.imgur.com/O14VG9J.png'};
+        var restaurantIcon = {url: 'http://i.imgur.com/2Wokc2X.png'};
+        var busIcon = {url: 'http://i.imgur.com/PJ6gBqg.png'}
+        var metroIcon = {url: 'http://i.imgur.com/4E4VUN7.png'}
+
+        var theatres = [
+        ['<h3>Office National Du Film Du Canada</h3>1564, rue Saint-Denis ', 45.5144720, -73.5623010, 1],
+        ['<h3>Cinamatheque Quebecois</h3><div>Partial Access, Aid For Vision Impaired</div>335, boul. De Maisonneuve E.', 45.5144720, -73.5623010, 2],
+        ['<h3>Cinema ExCentris</h3>3536, boul. Saint-Laurent ', 45.5133390, -73.5712850,3],
+        ['<h3>Usine C</h3>1345, av. Lalonde', 45.5223990, -73.5602030, 4],
+        ['<h3>Maison de la Culture du Plateau-Mont-Royal</h3><div>Partial Access, Aid For Hearing Impaired</div>465, ave du Mont-Royal E.', 45.5245630, -73.5824250,5],
+        ['<h3>Theatre du Rideau Vert</h3><div>Partial Access, Aid For Hearing Impaired</div>4664, rue St-Denis', 45.5249720, -73.5851310,6],
+        ['<h3>Theatre d&#39Aujourd&#39hui</h3>3900, rue St-Denis', 45.5199770, -73.5741540,7],
+        ['<h3>Montreal-Arts Interculturels (MAI)</h3>3680, rue Jeanne-Mance', 45.5114980, -73.5762160,8],
+        ['<h3>Centre Bell</h3><div>Aid For Hearing Impaired</div>1909, ave des Canadiens-de-Montreal', 45.4960070, -73.5692300,9],
+        ['<h3>Metropolis</h3>59 St. Catherine Street E.', 45.5105350, -73.5633720, 10],
+        ['<h3>Maison Theatre</h3>245, rue Ontario E.', 45.5142620, -73.5658090, 11],
+        ['<h3>Banque Scotia Montreal</h3>977 rue St. Catherine O. (Metcalfe)',45.5010480, -73.5722410,12],
+        ['<h3>Cinema du Parc</h3>3575, ave du Parc', 45.5103440, -73.5751140, 13],
+        ];
+
+        var exhibits = [
+        ['<h3>Les Impatients</h3><div>Partial Access</div> 100, Sherbrook E.', 45.5134840, -73.5685100, 1],
+        ['<h3>Basilique Saint Patrick</h3><div>Partial Access</div> 454, Rene Levesque O.', 45.5041680, -73.5654110, 2],
+        ['<h3>Bibliotheque Nationale Du Quebec</h3><div>Aid For Vision & Hearing Impaired</div>475, Maisonneuve E.', 45.5154550, -73.5623130, 3],
+        ['<h3>Jardin Botanique de Montreal</h3><div>Aid For Vision Impaired</div>4101, Sherbrooke E.', 45.5564070, -73.5548350, 4],
+        ['<h3>Musee des Beaux Arts</h3><div>Aid For Vision Impaired</div>1380, Sherbrooke O.', 45.4983900, -73.5796930, 5],
+        ['<h3>Musee McCord</h3><div>Aid For Hearing Impaired</div>690, Sherbrooke O.', 45.5043080, -73.5733620,6],
+        ['<h3>Place des Arts</h3><div>Aid For Hearing Impaired</div>260, Maisonneuve O.',45.5073410, -73.5698910,7],
+        ['<h3>Musée d`Art Contemporain de Montréal</h3><div>Partial Access, Aid For Vision Impaired</div> 185, St. Catherine O.', 45.5078280, -73.5667900, 8],
+        ['<h3>Complexe Desjardins</h3>150, St. Catherine O.', 45.5112090, -73.5623700, 9],
+        ['<h3>Complexe Les Ailes</h3>650, Maisonneuve O.', 45.5039420, -73.5717140, 10],
+        ];
+
+        var restaurants = [
+        ['<h3>O Noir</h3><div>Mon - Sun: 5:30pm to 11pm</div><div>A unique dining experience completely in the dark!</div>1631, Rue St. Catherine', 45.4946000, -73.5783850, 1],
+        ['<h3>Le Square</h3><div>Sun-Mon: 11am-11pm, Sat 5pm-11pm</div><div>A quaint French bistro, BYOB</div>162, Rue Prince-Arthur E', 45.5154300, -73.5712260, 2],
+        ['<h3>Lola Rosa</h3><div>M-W: 5pm-9:30pm, Thu:11:30am-9:30pm, Fri&Sat: 11:30am-10pm, Sun: 11:30am-9:30pm</div><div>A vegetarian and vegan twist on classics.</div>545 Milton St', 45.5073290, -73.5757370, 3],
+        ['<h3>Misto</h3><div>Mon-Sun: 5:00pm-12:00am</div><div>fresh take on Italian cuisine.</div>929, Ave. Mont-Royal E', 45.5269270, -73.5804210, 4],
+        ['<h3>Mister Steer</h3><div>Sun: 8am-10pm, M-W: 9am-10pm, Thu: 9am-11pm, Fri-Sat: 8am-12am</div><div>Casual diner in downtown Montreal.</div>1198, St. Catherine O.', 45.4987830, -73.5741300, 5],
+        ['<h3>Bistro-Bar Balmoral</h3><div>Mon: 11:30am-2pm, Tue-Fri: 11:30am-2pm, 5pm-9:30pm Sat: 4:30 pm - 9:30pm, Sun: CLOSE</div><div>French inspired cuisine that becomes a jazz venue during Montreal’s Jazz festival.</div>305 Rue Sainte-Catherine O.', 45.5067290, -73.5668240,6],
+        ['<h3>Rueben&#39s Deli</h3><div>Mon-Thu: 6:30am-12:00am, Fri: 6:30am-1:30am, Sat: 8:00am-1:30am, Sun: 8:00am-12am</div><div>Classic deli and steakhouse in Montreal</div>1116 Rue Sainte-Catherine O', 45.4997090, -73.5732030,7],
+        ['<h3>Deville Dinerbar</h3><div>Mon-Thu: 11am-11pm, Fri-Sat: 11am-12am, Sun: 11am-11pm</div><div>Authentic diner with a nostalgic feel.</div>1425 Stanley, Montréal', 45.4996670, -73.5742920,8],
+        ['<h3>Brasserie T!</h3><div>Mon-Sun: 11:30am-11:30pm</div><div>Steps away from the Museum of Contemporary Art, this restaurant serves typical brasserie foods!</div>1425 Rue Jeanne-Mance', 45.5072130, -73.5662570,9],
+        ['<h3>Dinette Triple Crown</h3><div>Mon-Sun: 11am-9pm</div><div>Barbecue, soul food in Montreal’s Plateau neighborhood.</div>6704 Rue Clark', 45.5314230, -73.6130370,10],
+        ['<h3>Icehouse</h3><div>Mon: CLOSED, Tue-Thu: 5:00 pm - 11:00 pm, Fri-Sat: 5pm-1:30am, Sun: 5pm-11pm</div><div>Tex-Mex and seafood tucked away off the bustling St. Laurent Blvd.</div>51 Rue Roy E', 45.5159670, -73.5755810,11],
+        ['<h3>Portus Calle</h3><div>Mon-Fri: 11:45am-3pm 6pm - 11pm, Sat: 6pm - 3am, Sun: CLOSED</div><div>Mediterranean restaurant in Montreal’s Portuguese neighborhood.</div>4281 Boulevard Saint-Laurent', 45.5188710, -73.5830760,12],
+        ['<h3>Grinder</h3><div>Mon-Wed: 12pm-3pm, 5:30pm-11pm, Thu-Fri: 12pm-3pm, 5:30pm-12am, Sat: 5:30pm-12am, Sun: CLOSED</div><div>Restaurant specializing in meat and wine, with a vintage yet modern feel.</div>1708 Rue Notre-Dame O', 45.4890890, -73.5680660,13]
+        ];
+
+        var buses =[
+        ['<h3>144 EAST: Atwater/Tupper</h3>', 45.48933193381411, -73.5842323068848],
+        ['<h3>144 EAST: Atwater/Lincoln</h3>', 45.490234490415304, -73.5858630899659], 
+        ['<h3>144 EAST: Atwater/Sherbrooke</h3>', 45.4912573704128, -73.5875797037354], 
+        ['<h3>144 EAST: Atwater/Picquet</h3>', 45.4933030746779, -73.5892748598328], 
+        ['<h3>144 EAST: Atwater/Docteur Penfield</h3>', 45.495213334361786, -73.588416552948], 
+        ['<h3>144 EAST: Docteur Penfield/Cote des Neiges</h3>', 45.49667230795539, -73.5859918359985],
+        ['<h3>144 EAST: Docteur Penfield/Redpath</h3>', 45.49937958147996, -73.5836958650817],
+        ['<h3>144 EAST: Docteur Penfield/Montagne</h3>', 45.500958764258684, -73.581936335968], 
+        ['<h3>144 EAST: Docteur Penfield/Peel</h3>', 45.50310938956828, -73.5794472460022], 
+        ['<h3>144 EAST: Docteur Penfield/No. 855</h3>', 45.505139624788605, -73.5783099893799], 
+        ['<h3>144 EAST: Docteur Penfield/Des Pins</h3>', 45.50688406471483, -73.5798978571167], 
+        ['<h3>144 EAST: Des Pins/University</h3>', 45.507966793341396, -73.5800909761658], 
+        ['<h3>144 EAST: Des Pins/Aylmer</h3>', 45.50921491299956, -73.5794257883301], 
+        ['<h3>144 EAST: Des Pins/Du Parc</h3>', 45.51135018606829, -73.5782027010193], 
+        ['<h3>144 EAST: Des Pins/Du Parc Southwest Corner</h3>', 45.51208698684899, -73.5775160555115], 
+        ['<h3>144 EAST: Des Pins/St Urbain</h3>', 45.513545523212684, -73.5761213068238], 
+        ['<h3>144 EAST: Des Pins/St Dominique</h3>', 45.51534984578933, -73.5747051004639],
+        ['<h3>144 EAST: Des Pins/De l`Hotel-de-Ville</h3>', 45.51674063829224, -73.5735893015137],
+        ['<h3>144 EAST: Des Pins/St Denis</h3>', 45.51868017260383, -73.5717224840394],
+        ['<h3>144 EAST: Sherbrooke Metro</h3>', 45.518800451599944, -73.5693192247621],
+        ['<h3>144 WEST: Sherbrooke Metro</h3>',45.51764275559034, -73.5672378305666],
+        ['<h3>144 WEST: Des Pins/Drolet</h3>', 45.51842457888344, -73.5722374681703],
+        ['<h3>144 WEST: Des Pins/Bullion</h3>', 45.516567730825166, -73.5739648107759],
+        ['<h3>144 WEST: Des Pins/St. Laurent</h3>', 45.51525963103449, -73.5750806097261],
+        ['<h3>144 WEST: Des Pins/St. Urbain</h3>', 45.51405675381619, -73.5761534933321],
+        ['<h3>144 WEST: Des Pins/Du Parc Northeast Corner</h3>', 45.51187647332453, -73.5780417684786],
+        ['<h3>144 WEST: Des Pins/Du Parc Northwest Corner</h3>', 45.511259964901726, -73.5786211256258],
+        ['<h3>144 WEST: Des Pins/Aylmer</h3>', 45.50945551119773, -73.5796296362154],
+        ['<h3>144 WEST: Des Pins/University</h3>', 45.508402886488106, -73.5801875356905],
+        ['<h3>144 WEST: Des Pins/Docteur Penfield</h3>', 45.50707955892424, -73.5807239774934],
+        ['<h3>144 WEST: Des Pins/Peel</h3>', 45.50485389240703, -73.5817968610993],
+        ['<h3>144 WEST: Des Pins/Redpath</h3>', 45.50279356862017, -73.5836636785737],
+        ['<h3>144 WEST: Des Pins/No. 1305</h3>', 45.501710740490644, -73.5845219854585],
+        ['<h3>144 WEST: Des Pins/Cedar</h3>', 45.499560061753535, -73.585702157425],
+        ['<h3>144 WEST: Des Pins/No. 1550</h3>', 45.497514584778195, -73.5870969061127],
+        ['<h3>144 WEST: Montreal General Hospital</h3>', 45.49679263398715, -73.5876762632599],
+        ['<h3>144 WEST: Atwater/Docteur Penfield</h3>', 45.4948373041132, -73.5886847738495],
+        ['<h3>144 WEST: Atwater/Piquet</h3>', 45.493272991329995, -73.5898220304718],
+        ['<h3>144 WEST: Atwater/Atwater</h3>', 45.490941482984425, -73.5878050092926],
+        ['<h3>144 WEST: Atwater/Maisoneuve</h3>', 45.49003893771242, -73.5861313108673],
+        ['<h3>150 EAST: Station Atwater</h3>', 45.489844, -73.583715],
+        ['<h3>150 EAST: Rene-Levesque/du Sussex</h3>', 45.48915,-73.581142],
+        ['<h3>150 EAST: Rene-Levesque/Rampe</h3>', 45.490318, -73.578178],
+        ['<h3>150 EAST: Rene-Levesque/St Mathieu</h3>', 45.492025, -73.576588],
+        ['<h3>150 EAST: Rene-Levesque/Guy</h3>', 45.493597, -73.574904],
+        ['<h3>150 EAST: Rene-Levesque/Bishop</h3>', 45.49503, -73.573675],
+        ['<h3>150 EAST: Rene-Levesque/de la Montagne</h3>', 45.49656, -73.572082],
+        ['<h3>150 EAST: Rene-Levesque/Drummond</h3>', 45.497165,-73.571594],
+        ['<h3>150 EAST: Rene-Levesque/Peel</h3>', 45.498335, -73.570478],
+        ['<h3>150 EAST: Rene-Levesque/Mansfield</h3>', 45.499929, -73.569073],
+        ['<h3>150 EAST: Rene-Levesque/Union</h3>', 45.502241, -73.566788],
+        ['<h3>150 EAST: Rene-Levesque/Beaver Hall</h3>', 45.503723, -73.56565],
+        ['<h3>150 EAST: Rene-Levesque/Jeanne-Mance</h3>', 45.506317, -73.563596],
+        ['<h3>150 EAST: Rene-Levesque/St Laurent</h3>', 45.508621, -73.561595],
+        ['<h3>150 EAST: Rene-Levesque/de l`Hotel-de-Ville</h3>', 45.510531, -73.559878],
+        ['<h3>150 EAST: Rene-Levesque/St Denis</h3>', 45.512512,-73.558145],
+        ['<h3>150 EAST: Rene-Levesque/Berri</h3>', 45.513399,-73.557368],
+        ['<h3>150 EAST: Rene-Levesque/St Hubert</h3>', 45.514211, -73.55652],
+        ['<h3>150 EAST: Rene-Levesque/Amherst</h3>', 45.516241, -73.554595],
+        ['<h3>150 EAST: Rene-Levesque/Panet</h3>', 45.518782, -73.551838],
+        ['<h3>150 EAST: Rene-Levesque/Papineau</h3>', 45.521037, -73.549857],
+        ['<h3>150 WEST: Rene-Levesque/De Champlain</h3>', 45.520816, -73.550614],
+        ['<h3>150 WEST: Rene-Levesque/Panet</h3>', 45.519068, -73.552545],
+        ['<h3>150 WEST: Rene-Levesque/Amherst</h3>', 45.516664, -73.554875],
+        ['<h3>150 WEST: Rene-Levesque/St Andre</h3>', 45.515439,-73.555787],
+        ['<h3>150 WEST: Rene-Levesque/St Hubert</h3>', 45.51464,-73.556769],
+        ['<h3>150 WEST: Rene-Levesque/Berri</h3>', 45.513805, -73.557469],
+        ['<h3>150 WEST: Rene-Levesque/St Denis</h3>', 45.51289, -73.558303],
+        ['<h3>150 WEST: Rene-Levesque/de l`Hotel-de-Ville</h3>', 45.510792, -73.560106],
+        ['<h3>150 WEST: Rene-Levesque/St Laurent</h3>', 45.508666, -73.561935],
+        ['<h3>150 WEST: Rene-Levesque/St Urbain</h3>', 45.5079, -73.562665],
+        ['<h3>150 WEST: Rene-Levesque/Jeanne-Mance</h3>', 45.505877, -73.564389],
+        ['<h3>150 WEST: Rene-Levesque/Place du Frere Andre</h3>', 45.503253, -73.566463],
+        ['<h3>150 WEST: Rene-Levesque/University</h3>', 45.50213, -73.567345],
+        ['<h3>150 WEST: Rene-Levesque/Mansfield</h3>', 45.500258, -73.569027],
+        ['<h3>150 WEST: Rene-Levesque/Peel</h3>', 45.499015, -73.570261],
+        ['<h3>150 WEST: Rene-Levesque/Stanley</h3>', 45.498211,-73.571004],
+        ['<h3>150 WEST: Rene-Levesque/de la Montagne</h3>', 45.496759, -73.572358],
+        ['<h3>150 WEST: Rene-Levesque/Bishop</h3>', 45.495428, -73.573648],
+        ['<h3>150 WEST: Rene-Levesque/Guy</h3>', 45.494026, -73.57503],
+        ['<h3>150 WEST: Rene-Levesque/St Mathieu</h3>', 45.49235,-73.576583],
+        ['<h3>150 WEST: Rene-Levesque/Seymour</h3>', 45.489887, -73.579396],
+        ['<h3>150 WEST: Rene-Levesque/du Sussex</h3>', 45.48925, -73.580713],
+        ['<h3>150 WEST: Rene-Levesque/Atwater</h3>', 45.488253,-73.582955],
+        ['<h3>150 WEST: Atwater/St Catherine</h3>', 45.489257,-73.5842],
+        ['<h3>55 NORTH: St Laurent/St Jacques</h3>', 45.506489, -73.556184],
+        ['<h3>55 NORTH: Station Place-d`Armes</h3>', 45.507162, -73.557637],
+        ['<h3>55 NORTH: St Laurent/Viger</h3>', 45.508080, -73.559885],
+        ['<h3>55 NORTH: St Laurent/Rene Levesque</h3>', 45.508741, -73.561140],
+        ['<h3>55 NORTH: St Laurent/St Catherine</h3>', 45.509824, -73.563587],
+        ['<h3>55 NORTH: St Laurent/de Maisoneuve</h3>', 45.510726, -73.564917],
+        ['<h3>55 NORTH: St Laurent/Ontario</h3>', 45.511241, -73.566564],
+        ['<h3>55 NORTH: St Laurent/Sherbrooke</h3>', 45.512783, -73.569793],
+        ['<h3>55 NORTH: St Laurent/Prince Arthur</h3>', 45.513903, -73.572288],
+        ['<h3>55 NORTH: St Laurent/Roy</h3>', 45.515447, -73.575744],
+        ['<h3>55 NORTH: St Laurent/Napoleon</h3>', 45.516318, -73.577845],
+        ['<h3>55 NORTH: St Laurent/Duluth</h3>', 45.516917, -73.579223],
+        ['<h3>55 NORTH: St Laurent/Rachel</h3>', 45.518024, -73.581427],
+        ['<h3>55 NORTH: St Laurent/Marie Anne</h3>', 45.519054, -73.583874],
+        ['<h3>55 NORTH: St Laurent/Mont Royal</h3>', 45.520136, -73.586191],
+        ['<h3>55 NORTH: St Laurent/Villeneuve</h3>', 45.521489, -73.589152],
+        ['<h3>55 NORTH: St Laurent/Fairmount</h3>', 45.523835, -73.594334],
+        ['<h3>55 NORTH: St Laurent/St Joseph</h3>', 45.522519, -73.591384],
+        ['<h3>55 NORTH: St Laurent/Laurier</h3>', 45.523023, -73.592591],
+        ['<h3>55 NORTH: St Laurent/Maguire</h3>', 45.524489, -73.595761],
+        ['<h3>55 NORTH: St Laurent/St Viateur</h3>', 45.525759, -73.598679],
+        ['<h3>55 NORTH: St Laurent/Bernard</h3>', 45.527334, -73.601941],
+        ['<h3>55 NORTH: St Laurent/Bellechase</h3>', 45.529043, -73.605782],
+        ['<h3>55 NORTH: St Laurent/Beau-Bien</h3>', 45.530160, -73.608239],
+        ['<h3>55 SOUTH: Clark/Beau-Bien</h3>', 45.529741, -73.609602],
+        ['<h3>55 SOUTH: Clark/C.P. Railroad</h3>', 45.529182, -73.608099],
+        ['<h3>55 SOUTH: Saint Urbain/Bernard</h3>', 45.526171, -73.603528],
+        ['<h3>55 SOUTH: St Urbain/St Viateur</h3>', 45.524664, -73.600197],
+        ['<h3>55 SOUTH: St Urbain/Fairmount</h3>', 45.522665,-73.595836],
+        ['<h3>55 SOUTH: St Urbain/Laurier</h3>', 45.521883, -73.594071],
+        ['<h3>55 SOUTH: St Urbain/St Joseph</h3>', 45.521188, -73.592682],
+        ['<h3>55 SOUTH: St Urbain/Villeneuve</h3>', 45.520286, -73.590702],
+        ['<h3>55 SOUTH: St Urbain/Mont-Royal</h3>', 45.518865, -73.587655],
+        ['<h3>55 SOUTH: St Urbain/Marie-Anne</h3>', 45.517861, -73.585359],
+        ['<h3>55 SOUTH: St Urbain/Rachel</h3>', 45.516583, -73.5825],
+        ['<h3>55 SOUTH: St Urbain/Duluth</h3>', 45.515745, -73.58028],
+        ['<h3>55 SOUTH: St Urbain/St Cuthbert</h3>', 45.5147, -73.578499],
+        ['<h3>55 SOUTH: St Urbain/des Pins</h3>', 45.513835, -73.576353],
+        ['<h3>55 SOUTH: St Urbain/Prince Arthur</h3>', 45.51267, -73.573864],
+        ['<h3>55 SOUTH: St Urbain/Sherbrooke</h3>', 45.511151, -73.570259],
+        ['<h3>55 SOUTH: St Urbain/Place-des-Arts Metro</h3>', 45.509888, -73.567716],
+        ['<h3>55 SOUTH: St Urbain/St Catherine</h3>', 45.508821, -73.564991],
+        ['<h3>55 SOUTH: St Urbain/Rene-Levesque</h3>', 45.507768, -73.562914],
+        ['<h3>55 SOUTH: St Urbain/Isaac</h3>', 45.506926, -73.560994],
+        ['<h3>55 SOUTH: St Urbain/Viger</h3>', 45.50614, -73.559293],
+        ['<h3>55 SOUTH: Place d`Armes/Notre Dame</h3>', 45.505302, -73.556076],
+        ['<h3>55 SOUTH: St Laurent/St Jacques</h3>', 45.506475, -73.555979],
+        ['<h3>24 EAST: Sherbrooke/Atwater</h3>', 45.49106, -73.587977],
+        ['<h3>24 EAST: Sherbrooke/Chomedey</h3>', 45.492612, -73.585809],
+        ['<h3>24 EAST: Sherbrooke/St Marc</h3>', 45.494441, -73.583478],
+        ['<h3>24 EAST: Sherbrooke/St Mathieu</h3>',45.495569, -73.582505],
+        ['<h3>24 EAST: Sherbrooke/Cote des Neiges</h3>', 45.496334, -73.581679],
+        ['<h3>24 EAST: Sherbrooke/Bishop</h3>', 45.498205, -73.58],
+        ['<h3>24 EAST: Sherbrooke/de la Montagne</h3>', 45.499497, -73.578803],
+        ['<h3>24 EAST: Sherbrooke/Peel</h3>', 45.501638, -73.576628],
+        ['<h3>24 EAST: Sherbrooke/McGill College</h3>', 45.50351, -73.574761],
+        ['<h3>24 EAST: Sherbrooke/University</h3>', 45.504841, -73.573479],
+        ['<h3>24 EAST: Sherbrooke/Aylmer</h3>', 45.50601, -73.572616],
+        ['<h3>24 EAST: Sherbrooke/de Bleury</h3>', 45.508159, -73.571232],
+        ['<h3>24 EAST: Sherbrooke/Jeanne-Mance</h3>', 45.509136, -73.570679],
+        ['<h3>24 EAST: Sherbrooke/St Urbain</h3>', 45.51092, -73.569974],
+        ['<h3>24 EAST: Sherbrooke/St Laurent</h3>', 45.512298, -73.569389],
+        ['<h3>24 EAST: Sherbrooke/de l`Hotel-de-Ville</h3>', 45.51438, -73.568442],
+        ['<h3>24 EAST: Sherbrooke/St Denis</h3>', 45.51675, -73.567401],
+        ['<h3>24 EAST: Station Sherbrooke</h3>', 45.518966, -73.568617],
+        ['<h3>24 EAST: Cherrier/St Hubert</h3>', 45.519703, -73.56851],
+        ['<h3>24 EAST: Cherrier/Du Parc La Fontaine</h3>', 45.521748, -73.566677],
+        ['<h3>24 EAST: Sherbrooke/Panet</h3>', 45.524452, -73.56491],
+        ['<h3>24 WEST: Sherbrooke/Beaudry</h3>', 45.523358, -73.565548],
+        ['<h3>24 WEST: Cherrier/Du Parc La Fontaine</h3>', 45.522373, -73.566358],
+        ['<h3>24 WEST: Cherrier/St Hubert</h3>', 45.520015, -73.568488],
+        ['<h3>24 WEST: Station Sherbrooke</h3>', 45.518303, -73.56812],
+        ['<h3>24 WEST: Sherbrooke/St Denis</h3>', 45.517179, -73.567503],
+        ['<h3>24 WEST: Sherbrooke/de l`Hotel-de-Ville</h3>', 45.514745, -73.568611],
+        ['<h3>24 WEST: Sherbrooke/St Laurent</h3>', 45.51273, -73.569442],
+        ['<h3>24 WEST: Sherbrooke/St Urbain</h3>', 45.511255, -73.570067],
+        ['<h3>24 WEST: Sherbrooke/Jeanne-Mance</h3>', 45.509447, -73.570888],
+        ['<h3>24 WEST: Sherbrooke/Hutchison</h3>', 45.507802, -73.571736],
+        ['<h3>24 WEST: Sherbrooke/Aylmer</h3>', 45.505988, -73.572801],
+        ['<h3>24 WEST: Sherbrooke/University</h3>', 45.505074, -73.573503],
+        ['<h3>24 WEST: Sherbrooke/Mansfield</h3>', 45.503332, -73.575207],
+        ['<h3>24 WEST: Sherbrooke/Peel</h3>', 45.502044, -73.576502],
+        ['<h3>24 WEST: Sherbrooke/</h3>', ],
+        ['<h3>24 WEST: Sherbrooke/de la Montagne</h3>', 45.499797,-73.578777],
+        ['<h3>24 WEST: Sherbrooke/Redpath</h3>', 45.498113,-73.580319],
+        ['<h3>24 WEST: Sherbrooke/Cote des Neiges</h3>', 45.496654, -73.58184],
+        ['<h3>24 WEST: Sherbrooke/St Mathieu</h3>', 45.495898, -73.582467],
+        ['<h3>24 WEST: Sherbrooke/St Marc</h3>', 45.494712, -73.583484],
+        ['<h3>24 WEST: Sherbrooke/Chomedey</h3>', 45.492914, -73.585713],
+        ['<h3>24 WEST: Sherbrooke/Atwater</h3>', 45.491557, -73.587759]
+        ];
+
+        var metro = [
+        ['<h3>Berri-UQAM</h3>', 45.514738, -73.559654],
+        ['<h3>Lionel-Groulx</h3>', 45.482822, -73.579652]
+        ];
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+
+        var theatreMarker, exhibitMarker, restaurantMarker, busMarker, i;
+        for(i=0;i<buses.length;i++)
+        {
+          busMarker = new google.maps.Marker({
+            position: new google.maps.LatLng(buses[i][1],buses[i][2]),
+            map: map,
+            icon: busIcon
+          });
+          var bInfoWindow = new google.maps.InfoWindow();
+
+          google.maps.event.addListener(busMarker, 'click', (function(busMarker, i){
+            return function(){
+              bInfoWindow.setContent(buses[i][0]);
+              bInfoWindow.open(map, busMarker);
+            }
+          })(busMarker, i));
+        }
+
+        for(i=0; i<metro.length;i++)
+        {
+          metroMarker = new google.maps.Marker({
+            position: new google.maps.LatLng(metro[i][1],metro[i][2]),
+            map: map,
+            icon: metroIcon
+          });
+          var mInfoWindow = new google.maps.InfoWindow();
+
+          google.maps.event.addListener(metroMarker, 'click', (function(metroMarker, i){
+            return function(){
+              mInfoWindow.setContent(metro[i][0]);
+              mInfoWindow.open(map, metroMarker);
+            }
+          })(metroMarker, i));
+        }
+
+        for(i = 0; i< exhibits.length; i++)
+        {
+          exhibitMarker = new google.maps.Marker({
+            position: new google.maps.LatLng(exhibits[i][1],exhibits[i][2]),
+            map: map,
+            icon: exhibitIcon
+          });
+
+          var eInfoWindow =  new google.maps.InfoWindow();
+
+          google.maps.event.addListener(exhibitMarker, 'click', (function(exhibitMarker, i){
+            return function(){
+              eInfoWindow.setContent(exhibits[i][0]);
+              eInfoWindow.open(map, exhibitMarker);
+            }
+          })(exhibitMarker, i));
+        }
+        
+        for(i=0; i<theatres.length; i++)
+        {
+          theatreMarker = new google.maps.Marker({
+            position: new google.maps.LatLng(theatres[i][1],theatres[i][2]),
+            map: map,
+            icon: theatreIcon
+          });
+
+          var tInfoWindow =  new google.maps.InfoWindow();
+
+          google.maps.event.addListener(theatreMarker, 'click', (function(theatreMarker, i){
+            return function(){
+              tInfoWindow.setContent(theatres[i][0]);
+              tInfoWindow.open(map, theatreMarker);
+            }
+          })(theatreMarker, i));
+        }
+
+        for(i=0; i<restaurants.length; i++)
+        {
+            restaurantMarker = new google.maps.Marker({
+            position: new google.maps.LatLng(restaurants[i][1],restaurants[i][2]),
+            map: map,
+            icon: restaurantIcon
+            });
+
+            var rInfoWindow = new google.maps.InfoWindow();
+
+            google.maps.event.addListener(restaurantMarker, 'click', (function(restaurantMarker, i){
+              return function(){
+              rInfoWindow.setContent(restaurants[i][0]);
+              rInfoWindow.open(map, restaurantMarker);
+            }
+            }) (restaurantMarker, i));
+        }
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+      
+    </script>
+
+
+  <script src="MontreAbility_files/common.js" charset="UTF-8" type="text/javascript"></script><script src="MontreAbility_files/map.js" charset="UTF-8" type="text/javascript"></script><script src="MontreAbility_files/util.js" charset="UTF-8" type="text/javascript"></script><script src="MontreAbility_files/marker.js" charset="UTF-8" type="text/javascript"></script><script src="MontreAbility_files/infowindow.js" charset="UTF-8" type="text/javascript"></script><script src="MontreAbility_files/onion.js" charset="UTF-8" type="text/javascript"></script><script src="MontreAbility_files/stats.js" charset="UTF-8" type="text/javascript"></script><script src="MontreAbility_files/controls.js" charset="UTF-8" type="text/javascript"></script></head>
+  <body>
+    
+    <img id="logo" src="MontreAbility_files/q6k0b8O.png">
+ 
+ <p>
+  </p><p>
+  </p><p>
+    </p><nav>
+    &#8195; &#8195; <a href="http://cs.mcgill.ca/%7Edblade/Montreability/main.html">Home</a>  &#8195; &#8195; &#8195;
+    <a href="http://cs.mcgill.ca/%7Edblade/Montreability/Restaurants.html">Dining</a>  &#8195; &#8195; &#8195;
+    <a href="http://cs.mcgill.ca/%7Edblade/Montreability/Theatres.html">Cinema &amp; Theatre</a> &#8195; &#8195; &#8195; &#8195;
+    <a href="http://cs.mcgill.ca/%7Edblade/Montreability/Museums.html">Museums &amp; Landmarks</a> &#8195; &#8195; &#8195; &#8195;
+    <a href="http://cs.mcgill.ca/%7Edblade/Montreability/Transportation.html">Transportation</a> 
+    </nav>
+  <p>
+  </p><p>
+    </p><p>
+    </p><h1><i><b>Montr�Ability</b></i> 
+     highlights Montreal's most accessible dining, entertainment, and 
+art venues, as well as its disability-friendly transportation systems.</h1> 
+  <p></p>
+
+    
+
+      <div style="position: relative; background-color: rgb(229, 227, 223); overflow: hidden;" id="map-canvas"><div class="gm-style" style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0;"><div style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0; cursor: url(&quot;https://maps.gstatic.com/mapfiles/openhand_8_8.cur&quot;), default;"><div style="position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"><div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;"><div style="width: 256px; height: 256px; position: absolute; left: 340px; top: 176px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 340px; top: 432px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 84px; top: 176px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 84px; top: 432px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 596px; top: 176px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 596px; top: 432px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 340px; top: -80px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 340px; top: 688px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 84px; top: -80px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 84px; top: 688px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 596px; top: -80px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 596px; top: 688px;"></div><div style="width: 256px; height: 256px; position: absolute; left: -172px; top: 176px;"></div><div style="width: 256px; height: 256px; position: absolute; left: -172px; top: 432px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 852px; top: 176px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 852px; top: 432px;"></div><div style="width: 256px; height: 256px; position: absolute; left: -172px; top: -80px;"></div><div style="width: 256px; height: 256px; position: absolute; left: -172px; top: 688px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 852px; top: -80px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 852px; top: 688px;"></div></div></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: -1;"><div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;"><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 340px; top: 176px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 340px; top: 432px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 84px; top: 176px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 84px; top: 432px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 596px; top: 176px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 596px; top: 432px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 340px; top: -80px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 340px; top: 688px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 84px; top: -80px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 84px; top: 688px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 596px; top: -80px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 596px; top: 688px;"></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: -172px; top: 176px;"></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: -172px; top: 432px;"></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 852px; top: 176px;"></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 852px; top: 432px;"></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: -172px; top: -80px;"><canvas width="256" height="256" style="-moz-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;" draggable="false"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: -172px; top: 688px;"></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 852px; top: -80px;"></div><div style="width: 256px; height: 256px; overflow: hidden; position: absolute; left: 852px; top: 688px;"></div></div></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"><div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;"><div style="position: absolute; left: 340px; top: 176px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_005.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 340px; top: 432px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_019.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 84px; top: 176px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_008.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 84px; top: 432px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_012.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 596px; top: 176px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_010.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 596px; top: 432px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_014.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 340px; top: -80px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_009.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 340px; top: 688px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_006.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 84px; top: -80px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 84px; top: 688px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_015.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 596px; top: -80px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_003.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 596px; top: 688px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_018.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: -172px; top: 176px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_017.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: -172px; top: 432px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_013.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 852px; top: 176px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_004.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 852px; top: 432px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_011.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: -172px; top: -80px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_020.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: -172px; top: 688px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_007.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 852px; top: -80px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_002.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 852px; top: 688px; transition: opacity 200ms ease-out 0s;"><img alt="" draggable="false" src="MontreAbility_files/vt_016.png" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div></div></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 2; width: 100%; height: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 3; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;"></div></div><div style="width: 1px; height: 1px; z-index: 1000; position: absolute; left: 389px; top: 227px;"></div></div><div style="background-color: white; padding: 15px 21px; border: 1px solid rgb(171, 171, 171); font-family: Roboto,Arial,sans-serif; color: rgb(34, 34, 34); box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2); z-index: 10000002; display: none; width: 256px; height: 148px; position: absolute; left: 373px; top: 257px;"><div style="padding: 0px 0px 10px; font-size: 16px;">Map Data</div><div style="font-size: 13px;">Map data �2015 Google</div><div style="width: 13px; height: 13px; overflow: hidden; position: absolute; opacity: 0.7; right: 12px; top: 12px; z-index: 10000; cursor: pointer;"><img draggable="false" src="MontreAbility_files/mapcnt6.png" style="position: absolute; left: -2px; top: -336px; width: 59px; height: 492px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div></div><div style="z-index: 1000001; position: absolute; right: 166px; bottom: 0px; width: 121px;" class="gmnoprint"><div class="gm-style-cc" style="-moz-user-select: none; height: 14px; line-height: 14px;" draggable="false"><div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;"><div style="width: 1px;"></div><div style="background-color: rgb(245, 245, 245); width: auto; height: 100%; margin-left: 1px;"></div></div><div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto,Arial,sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a style="color: rgb(68, 68, 68); text-decoration: none; cursor: pointer; display: none;">Map Data</a><span style="">Map data �2015 Google</span></div></div></div><div style="position: absolute; right: 0px; bottom: 0px;" class="gmnoscreen"><div style="font-family: Roboto,Arial,sans-serif; font-size: 11px; color: rgb(68, 68, 68); direction: ltr; text-align: right; background-color: rgb(245, 245, 245);">Map data �2015 Google</div></div><div draggable="false" style="z-index: 1000001; -moz-user-select: none; height: 14px; line-height: 14px; position: absolute; right: 95px; bottom: 0px;" class="gmnoprint gm-style-cc"><div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;"><div style="width: 1px;"></div><div style="background-color: rgb(245, 245, 245); width: auto; height: 100%; margin-left: 1px;"></div></div><div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto,Arial,sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a target="_blank" href="https://www.google.com/intl/en-US_US/help/terms_maps.html" style="text-decoration: none; cursor: pointer; color: rgb(68, 68, 68);">Terms of Use</a></div></div><div class="gm-style-cc" style="-moz-user-select: none; height: 14px; line-height: 14px; position: absolute; right: 0px; bottom: 0px;" draggable="false"><div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;"><div style="width: 1px;"></div><div style="background-color: rgb(245, 245, 245); width: auto; height: 100%; margin-left: 1px;"></div></div><div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto,Arial,sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a href="https://www.google.com/maps/@45.511458,-73.570757,14z/data=%2110m1%211e1%2112b1?source=apiv3&amp;rapsrc=apiv3" style="font-family: Roboto,Arial,sans-serif; font-size: 10px; color: rgb(68, 68, 68); text-decoration: none; position: relative;" title="Report errors in the road map or imagery to Google" target="_new">Report a map error</a></div></div><div controlheight="93" controlwidth="28" draggable="false" style="margin: 10px; -moz-user-select: none; position: absolute; bottom: 107px; right: 28px;" class="gmnoprint"><div controlheight="55" controlwidth="28" style="position: absolute; left: 0px; top: 38px;" class="gmnoprint"><div style="-moz-user-select: none; box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3); border-radius: 2px; cursor: pointer; background-color: rgb(255, 255, 255); width: 28px; height: 55px;" draggable="false"><div style="position: relative; width: 28px; height: 27px; left: 0px; top: 0px;" title="Zoom in"><div style="overflow: hidden; position: absolute; width: 15px; height: 15px; left: 7px; top: 6px;"><img draggable="false" src="MontreAbility_files/tmapctrl.png" style="position: absolute; left: 0px; top: 0px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none; width: 120px; height: 54px;"></div></div><div style="position: relative; overflow: hidden; width: 67%; height: 1px; left: 16%; background-color: rgb(230, 230, 230); top: 0px;"></div><div style="position: relative; width: 28px; height: 27px; left: 0px; top: 0px;" title="Zoom out"><div style="overflow: hidden; position: absolute; width: 15px; height: 15px; left: 7px; top: 6px;"><img draggable="false" src="MontreAbility_files/tmapctrl.png" style="position: absolute; left: 0px; top: -15px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none; width: 120px; height: 54px;"></div></div></div></div><div controlheight="28" controlwidth="28" style="box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3); border-radius: 2px; width: 28px; height: 28px; cursor: url(&quot;https://maps.gstatic.com/mapfiles/openhand_8_8.cur&quot;), default; background-color: rgb(255, 255, 255); position: absolute; left: 0px; top: 0px;"><div style="position: absolute; left: 1px; top: 1px;"></div><div style="position: absolute; left: 1px; top: 1px;"><div aria-label="Street View Pegman Control" style="width: 26px; height: 26px; overflow: hidden; position: absolute; left: 0px; top: 0px;"><img draggable="false" src="MontreAbility_files/cb_scout5.png" style="position: absolute; left: -147px; top: -26px; width: 215px; height: 835px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div aria-label="Pegman is on top of the Map" style="width: 26px; height: 26px; overflow: hidden; position: absolute; left: 0px; top: 0px; visibility: hidden;"><img draggable="false" src="MontreAbility_files/cb_scout5.png" style="position: absolute; left: -147px; top: -52px; width: 215px; height: 835px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div aria-label="Street View Pegman Control" style="width: 26px; height: 26px; overflow: hidden; position: absolute; left: 0px; top: 0px; visibility: hidden;"><img draggable="false" src="MontreAbility_files/cb_scout5.png" style="position: absolute; left: -147px; top: -78px; width: 215px; height: 835px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div></div></div><div style="display: none; position: absolute;" controlheight="0" controlwidth="28" class="gmnoprint"><div title="Rotate map 90 degrees" style="width: 28px; height: 28px; overflow: hidden; position: absolute; border-radius: 2px; box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3); cursor: pointer; background-color: rgb(255, 255, 255); display: none;"><img draggable="false" src="MontreAbility_files/tmapctrl4.png" style="position: absolute; left: -141px; top: 6px; width: 170px; height: 54px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div><div class="gm-tilt" style="width: 28px; height: 28px; overflow: hidden; position: absolute; border-radius: 2px; box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3); top: 0px; cursor: pointer; background-color: rgb(255, 255, 255);"><img draggable="false" src="MontreAbility_files/tmapctrl4.png" style="position: absolute; left: -141px; top: -13px; width: 170px; height: 54px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none;"></div></div></div><div style="margin: 10px; z-index: 0; position: absolute; cursor: pointer; left: 0px; top: 0px;" class="gmnoprint"><div class="gm-style-mtc" style="float: left;"><div title="Show street map" draggable="false" style="direction: ltr; overflow: hidden; text-align: center; position: relative; color: rgb(0, 0, 0); font-family: Roboto,Arial,sans-serif; -moz-user-select: none; font-size: 11px; background-color: rgb(255, 255, 255); padding: 8px; border-bottom-left-radius: 2px; border-top-left-radius: 2px; background-clip: padding-box; box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3); min-width: 21px; font-weight: 500;">Map</div><div style="background-color: white; z-index: -1; padding: 2px; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3); position: absolute; left: 0px; top: 30px; text-align: left; display: none;"><div title="Show street map with terrain" draggable="false" style="color: rgb(0, 0, 0); font-family: Roboto,Arial,sans-serif; -moz-user-select: none; font-size: 11px; background-color: rgb(255, 255, 255); padding: 6px 8px 6px 6px; direction: ltr; text-align: left; white-space: nowrap;"><span style="box-sizing: border-box; position: relative; line-height: 0; font-size: 0px; margin: 0px 5px 0px 0px; display: inline-block; background-color: rgb(255, 255, 255); border: 1px solid rgb(198, 198, 198); border-radius: 1px; width: 13px; height: 13px; vertical-align: middle;" role="checkbox"><div style="position: absolute; left: 1px; top: -2px; width: 13px; height: 11px; overflow: hidden; display: none;"><img draggable="false" src="MontreAbility_files/imgs8.png" style="position: absolute; left: -52px; top: -44px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none; width: 68px; height: 67px;"></div></span><label style="vertical-align: middle; cursor: pointer;">Terrain</label></div></div></div><div class="gm-style-mtc" style="float: left;"><div title="Show satellite imagery" draggable="false" style="direction: ltr; overflow: hidden; text-align: center; position: relative; color: rgb(86, 86, 86); font-family: Roboto,Arial,sans-serif; -moz-user-select: none; font-size: 11px; background-color: rgb(255, 255, 255); padding: 8px; border-bottom-right-radius: 2px; border-top-right-radius: 2px; background-clip: padding-box; box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3); border-left: 0px none; min-width: 39px;">Satellite</div><div style="background-color: white; z-index: -1; padding: 2px; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; box-shadow: 0px 1px 4px -1px rgba(0, 0, 0, 0.3); position: absolute; right: 0px; top: 30px; text-align: left; display: none;"><div title="Show imagery with street names" draggable="false" style="color: rgb(0, 0, 0); font-family: Roboto,Arial,sans-serif; -moz-user-select: none; font-size: 11px; background-color: rgb(255, 255, 255); padding: 6px 8px 6px 6px; direction: ltr; text-align: left; white-space: nowrap;"><span style="box-sizing: border-box; position: relative; line-height: 0; font-size: 0px; margin: 0px 5px 0px 0px; display: inline-block; background-color: rgb(255, 255, 255); border: 1px solid rgb(198, 198, 198); border-radius: 1px; width: 13px; height: 13px; vertical-align: middle;" role="checkbox"><div style="position: absolute; left: 1px; top: -2px; width: 13px; height: 11px; overflow: hidden;"><img draggable="false" src="MontreAbility_files/imgs8.png" style="position: absolute; left: -52px; top: -44px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px; max-width: none; width: 68px; height: 67px;"></div></span><label style="vertical-align: middle; cursor: pointer;">Labels</label></div></div></div></div><div style="margin-left: 5px; margin-right: 5px; z-index: 1000000; position: absolute; left: 0px; bottom: 0px;"><a title="Click to see this area on Google Maps" href="https://maps.google.com/maps?ll=45.511458,-73.570757&amp;z=14&amp;t=m&amp;hl=en-US&amp;gl=US&amp;mapclient=apiv3" target="_blank" style="position: static; overflow: visible; float: none; display: inline;"><div style="width: 66px; height: 26px; cursor: pointer;"><img draggable="false" src="MontreAbility_files/google4.png" style="position: absolute; left: 0px; top: 0px; width: 66px; height: 26px; -moz-user-select: none; border: 0px none; padding: 0px; margin: 0px;"></div></a></div></div></div>
+      <img id="legend" src="MontreAbility_files/AEKWBTG.png">
+  <p>
+    </p><p>
+      </p><p>
+    
+  
+</p></body></html>
